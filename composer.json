@@ -1,0 +1,25 @@
+{
+  "name": "qingbing/php-yaf-doc",
+  "description": "php-yaf-doc，Yaf扩展框架编码提示文档",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "php",
+    "yaf",
+    "doc",
+    "php-yaf",
+    "yaf-api",
+    "document"
+  ],
+  "homepage": "http://www.phpcorner.net",
+  "authors": [
+    {
+      "name": "qingbing",
+      "email": "780042175@qq.com"
+    }
+  ],
+  "require": {},
+  "autoload": {},
+  "autoload-dev": {},
+  "repositories": {}
+}
