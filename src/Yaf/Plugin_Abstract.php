@@ -21,7 +21,7 @@ abstract class Plugin_Abstract
 {
     /**
      * (Yaf >= 3.0.1)
-     * 在路由之前触发
+     * 在路由之前触发，7个hook中最早触发，但是一起全局的自定义工作，还是应该放在Bootstrap中去实现
      *
      * @param Request_Abstract $request 当前请求对象
      * @param Response_Abstract $response 当前响应对象
@@ -35,7 +35,7 @@ abstract class Plugin_Abstract
 
     /**
      * (Yaf >= 3.0.1)
-     * 路由结束之后触发
+     * 路由结束之后触发，只有路由正确完成之后才会触发的hook
      *
      * @param Request_Abstract $request 当前请求对象
      * @param Response_Abstract $response 当前响应对象
@@ -49,7 +49,7 @@ abstract class Plugin_Abstract
 
     /**
      * (Yaf >= 3.0.1)
-     * 将在分发循环开始之前触发
+     * 在分发循环开始之前触发
      *
      * @param Request_Abstract $request 当前请求对象
      * @param Response_Abstract $response 当前响应对象
@@ -63,21 +63,7 @@ abstract class Plugin_Abstract
 
     /**
      * (Yaf >= 3.0.1)
-     * Yaf插件钩子系统中最后的一个钩子，如果用户插件实现了这个方法，它将在分发循环结束之后触发
-     *
-     * @param Request_Abstract $request 当前请求对象
-     * @param Response_Abstract $response 当前响应对象
-     *
-     * @return mixed
-     */
-    public function dispatchLoopShutdown(Request_Abstract $request, Response_Abstract $response)
-    {
-        return '';
-    }
-
-    /**
-     * (Yaf >= 3.0.1)
-     * 分发之前触发
+     * 分发之前触发，如果在请求处理中发生了 forward，则这个事件会被多次触发
      *
      * @param Request_Abstract $request 当前请求对象
      * @param Response_Abstract $response 当前响应对象
@@ -91,7 +77,7 @@ abstract class Plugin_Abstract
 
     /**
      * (Yaf >= 3.0.1)
-     * 分发结束之后触发
+     * 分发结束之后触发，此时 action 已经结束，视图也已经渲染完成，和preDispatch，事件可能会被多次触发
      *
      * @param Request_Abstract $request 当前请求对象
      * @param Response_Abstract $response 当前响应对象
@@ -105,7 +91,21 @@ abstract class Plugin_Abstract
 
     /**
      * (Yaf >= 3.0.1)
-     * 这个钩子在响应(Yaf_Response)前被触发
+     * 在分发循环结束之后触发，此时表示业务逻辑都已经运行完成，但是响应还没有发送
+     *
+     * @param Request_Abstract $request 当前请求对象
+     * @param Response_Abstract $response 当前响应对象
+     *
+     * @return mixed
+     */
+    public function dispatchLoopShutdown(Request_Abstract $request, Response_Abstract $response)
+    {
+        return '';
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 这个hook在响应(Yaf_Response)前被触发
      *
      * @param Request_Abstract $request 当前请求对象
      * @param Response_Abstract $response 当前响应对象
