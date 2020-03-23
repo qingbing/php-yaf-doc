@@ -21,6 +21,21 @@ final class Router
 {
     /**
      * (Yaf >= 3.0.1)
+     * 路由协议栈，默认栈底名为"default"的Route_Static路由协议的实例
+     *
+     * @var array
+     */
+    protected $_routes;
+    /**
+     * (Yaf >= 3.0.1)
+     * 路由生效的路由协议实例的索引
+     *
+     * @var String
+     */
+    protected $_current;
+
+    /**
+     * (Yaf >= 3.0.1)
      *
      * 魔术方法：构造函数
      * Router constructor.

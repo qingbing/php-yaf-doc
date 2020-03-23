@@ -24,13 +24,75 @@ final class Application
 {
     /**
      * (Yaf >= 3.0.1)
+     * 全局配置实例，根据实例化Application时传入的ini配置文件路径或者配置数组及配置节点名称，实例化的Ini或者Simple对象.
+     *
+     * @var Config_Abstract
+     */
+    protected $config;
+    /**
+     * (Yaf >= 3.0.1)
+     * Dispatcher实例（分发器）.
+     *
+     * @var Dispatcher
+     */
+    protected $dispatcher;
+    /**
+     * (Yaf >= 3.0.1)
+     * 存在的模块名, 从配置文件中ap.modules读取.
+     *
+     * @var string
+     */
+    protected $_modules;
+    /**
+     * (Yaf >= 3.0.1)
+     * 指明当前的Application是否已经运行.
+     *
+     * @var bool
+     */
+    protected $_running;
+    /**
+     * (Yaf >= 3.0.1)
+     * 当前的环境名, Application在读取配置的时获取的配置节名字.
+     * 注：此值只能在Yaf扩展级的配置文件.ini里面进行修改，默认为product.
+     *
+     * @var string
+     */
+    protected $_environ;
+    /**
+     * (Yaf >= 3.0.1)
+     * 最近一次发生的错误代码.
+     *
+     * @var int
+     */
+    protected $_err_no;
+    /**
+     * (Yaf >= 3.0.1)
+     * 最近一次产生的错误信息.
+     *
+     * @var string
+     */
+    protected $_err_msg;
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 用变量保存 Yaf 的 application 实例
+     *
+     * @var Application
+     */
+    static protected $_app;
+
+    /**
+     * (Yaf >= 3.0.1)
      * 获取当前的Application实例
      *
      * @return Application
      */
     static public function app()
     {
-        return new Application('');
+        if (null === self::$_app) {
+            self::$_app = new Application('');
+        }
+        return self::$_app;
     }
 
     /**
@@ -43,6 +105,30 @@ final class Application
      * @param string $environ 加载的配置节点，使用该节点的配置初始化应用
      */
     public function __construct($config, $environ = 'product')
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：private 禁止使用 clone 函数
+     */
+    private function __clone()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：private 禁止使用 serialize 函数
+     */
+    private function __sleep()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：private 禁止使用 unserialize 函数
+     */
+    private function __wakeup()
     {
     }
 
@@ -79,7 +165,7 @@ final class Application
      */
     public function environ()
     {
-        return \YAf\ENVIRON;
+        return $this->_environ;
     }
 
     /**
@@ -92,7 +178,7 @@ final class Application
      */
     public function bootstrap(Bootstrap_Abstract $bootstrap = null)
     {
-        return new Application('');
+        return self::$_app;
     }
 
     /**
@@ -103,7 +189,7 @@ final class Application
      */
     public function getConfig()
     {
-        return new Ini('');
+        return $this->config;
     }
 
     /**
@@ -138,7 +224,7 @@ final class Application
      */
     public function setAppDirectory($directory)
     {
-        return new Application('');
+        return self::$_app;
     }
 
     /**
@@ -182,7 +268,7 @@ final class Application
      */
     public function clearLastError()
     {
-        return new Application('');
+        return self::$_app;
     }
 
     /**

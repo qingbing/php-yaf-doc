@@ -31,6 +31,7 @@ composer require-dev qingbing/php-yaf-doc
 - [Download] http://pecl.php.net/package/yaf
 - [Yaf cg-tools] https://github.com/laruence/yaf
 - [DOC] https://www.php.net/manual/zh/book.yaf.php
+- [DOC] https://www.laruence.com/manual/
 
 
 ## Class-List-Doc : 

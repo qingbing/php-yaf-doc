@@ -23,6 +23,14 @@ abstract class Action_Abstract extends Controller_Abstract
 {
     /**
      * (Yaf >= 3.0.1)
+     * 当前请求的控制器实例
+     *
+     * @var Controller_Abstract
+     */
+    protected $_controller;
+
+    /**
+     * (Yaf >= 3.0.1)
      * 魔术方法：构造函数
      */
     final public function __construct()
@@ -45,8 +53,6 @@ abstract class Action_Abstract extends Controller_Abstract
      */
     public function getController()
     {
-        return new class extends Controller_Abstract
-        {
-        };
+        return $this->_controller;
     }
 }

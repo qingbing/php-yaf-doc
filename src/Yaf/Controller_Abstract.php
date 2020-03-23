@@ -43,18 +43,16 @@ abstract class Controller_Abstract
      * (Yaf >= 3.0.1)
      * 当前请求的模块名
      *
-     * @var String
+     * @var string
      */
     protected $_module;
-
     /**
      * (Yaf >= 3.0.1)
      * 当前请求的控制器名
      *
-     * @var String
+     * @var string
      */
     protected $_name;
-
     /**
      * (Yaf >= 3.0.1)
      * 当前请求对象，包括请求的所有相关信息
@@ -62,7 +60,6 @@ abstract class Controller_Abstract
      * @var Request_Abstract
      */
     protected $_request;
-
     /**
      * (Yaf >= 3.0.1)
      * 当前响应对象，保存响应的所有相关信息
@@ -70,7 +67,6 @@ abstract class Controller_Abstract
      * @var Response_Abstract
      */
     protected $_response;
-
     /**
      * (Yaf >= 3.0.1)
      * 储存调用参数
@@ -78,7 +74,6 @@ abstract class Controller_Abstract
      * @var array
      */
     protected $_invoke_args;
-
     /**
      * (Yaf >= 3.0.1)
      * 视图对象
@@ -92,6 +87,14 @@ abstract class Controller_Abstract
      * 魔术方法：构造函数
      */
     final private function __construct()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：private 禁止使用 clone 函数
+     */
+    private function __clone()
     {
     }
 
@@ -131,7 +134,7 @@ abstract class Controller_Abstract
      */
     public function getRequest()
     {
-        return new Request\Simple();
+        return $this->_request;
     }
 
     /**
@@ -142,7 +145,7 @@ abstract class Controller_Abstract
      */
     public function getResponse()
     {
-        return new Response\Cli();
+        return $this->_response;
     }
 
     /**
@@ -164,7 +167,7 @@ abstract class Controller_Abstract
      */
     public function getView()
     {
-        return new View\Simple('');
+        return $this->_view;
     }
 
     /**
@@ -175,7 +178,7 @@ abstract class Controller_Abstract
      */
     public function initView($options = null)
     {
-        return new View\Simple('');
+        return $this->_view;
     }
 
     /**
@@ -188,9 +191,7 @@ abstract class Controller_Abstract
      */
     public function setViewPath($view_directory)
     {
-        return new class extends Controller_Abstract
-        {
-        };
+        return $this;
     }
 
     /**
@@ -234,9 +235,7 @@ abstract class Controller_Abstract
      */
     public function redirect($url)
     {
-        return new class extends Controller_Abstract
-        {
-        };
+        return $this;
     }
 
     /**

@@ -24,6 +24,21 @@ final class Registry
 {
     /**
      * (Yaf >= 3.0.1)
+     * Registry实例（单例模式）
+     *
+     * @var Registry
+     */
+    static protected $_instance;
+    /**
+     * (Yaf >= 3.0.1)
+     * 变量栈
+     *
+     * @var array
+     */
+    protected $_entries;
+
+    /**
+     * (Yaf >= 3.0.1)
      * 获取注册变量值
      *
      * @param string $name 变量名
@@ -33,6 +48,24 @@ final class Registry
     static public function get($name)
     {
         return '';
+    }
+
+    /**
+     * (Yaf >= 2.2.9)
+     * 魔术方法：构造函数
+     */
+    private function __construct()
+    {
+    }
+
+    /**
+     * (Yaf >= 2.2.9)
+     * 魔术方法：构造函数，禁止使用 clone 函数
+     *
+     * @return void
+     */
+    private function __clone()
+    {
     }
 
     /**

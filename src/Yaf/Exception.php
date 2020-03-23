@@ -21,6 +21,44 @@ class Exception extends \Exception implements \Throwable
 {
     /**
      * (Yaf >= 3.0.1)
+     * 异常发生文件
+     *
+     * @var String
+     */
+    protected $file;
+    /**
+     * (Yaf >= 3.0.1)
+     * 异常发生文件行序列
+     *
+     * @var String
+     */
+    protected $line;
+    /**
+     * (Yaf >= 3.0.1)
+     * 异常消息
+     *
+     * @var String
+     */
+    protected $message;
+
+    /*
+     * (Yaf >= 3.0.1)
+     * 异常代码
+     *
+     * @var Int
+     */
+    protected $code;
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 上一个异常对象
+     *
+     * @var Exception
+     */
+    protected $previous;
+
+    /**
+     * (Yaf >= 3.0.1)
      * 异常构造函数
      *
      * @param string $message

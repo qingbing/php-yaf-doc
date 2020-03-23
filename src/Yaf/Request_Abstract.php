@@ -19,18 +19,95 @@ namespace Yaf;
  */
 abstract class Request_Abstract
 {
-    // http 请求
+    /**
+     * (Yaf >= 3.0.1)
+     * http 请求模式
+     */
     const SCHEME_HTTP = 'http';
-    // https 请求
+    /**
+     * (Yaf >= 3.0.1)
+     * https 请求模式
+     */
     const SCHEME_HTTPS = 'https';
-    /* @var string 在路由完成后, 请求被分配到的模块名 */
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 在路由完成后, 请求被分配到的模块名
+     *
+     * @var string
+     */
     public $module = '???';
-    /* @var string 在路由完成后, 请求被分配到的控制名 */
+    /**
+     * (Yaf >= 3.0.1)
+     * 路由完成后, 请求被分配到的模块名
+     *
+     * @var string
+     */
     public $controller = '???';
-    /* @var string 在路由完成后, 请求被分配到的操作名 */
+    /**
+     * (Yaf >= 3.0.1)
+     * 在路由完成后, 请求被分配到的操作名
+     *
+     * @var string
+     */
     public $action = '???';
-    /* @var string 当前请求的Method, 对于命令行来说, Method为"CLI" */
+    /**
+     * (Yaf >= 3.0.1)
+     * 当前请求的Method, 对于命令行来说, Method为"CLI"
+     *
+     * @var string
+     */
     public $method = '???';
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 请求传递的参数
+     *
+     * @var array
+     */
+    protected $params;
+    /**
+     * (Yaf >= 3.0.1)
+     * http报头中 HTTP_ACCEPT_LANGUAGE 的值
+     *
+     * @var string
+     */
+    protected $language;
+    /**
+     * (Yaf >= 3.0.1)
+     * 异常对象
+     *
+     * @var \Exception
+     */
+    protected $_exception;
+    /**
+     * (Yaf >= 3.0.1)
+     * 请求的Base URI（http请求 or cli模式下）
+     *
+     * @var string
+     */
+    protected $_base_uri;
+    /**
+     * (Yaf >= 3.0.1)
+     * 请求的URI（http请求）
+     *
+     * @var string
+     */
+    protected $uri;
+    /**
+     * (Yaf >= 3.0.1)
+     * 请求是否完成了分发，默认为0
+     *
+     * @var bool
+     */
+    protected $dispatched;
+    /**
+     * (Yaf >= 3.0.1)
+     * 请求是否完成了路由，默认为0
+     *
+     * @var bool
+     */
+    protected $routed;
 
     /**
      * (Yaf >= 3.0.1)

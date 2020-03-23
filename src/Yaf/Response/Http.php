@@ -24,6 +24,21 @@ class Http extends Response_Abstract
 {
     /**
      * (Yaf >= 3.0.1)
+     * 是否开启已输出响应报头检测
+     *
+     * @var int
+     */
+    protected $_sendheader = 1;
+    /**
+     * (Yaf >= 3.0.1)
+     * 响应状态码
+     *
+     * @var int
+     */
+    protected $_response_code = 200;
+
+    /**
+     * (Yaf >= 3.0.1)
      * 设置响应报头
      * @deprecated 总是返回null
      *

@@ -25,6 +25,31 @@ class Simple implements View_Interface
 {
     /**
      * (Yaf >= 3.0.1)
+     * 模板变量存储
+     *
+     * @var array
+     */
+    protected $_tpl_vars;
+    /**
+     * (Yaf >= 3.0.1)
+     * 模板文件目录
+     *
+     * @var string
+     */
+    protected $_tpl_dir;
+    /**
+     * (Yaf >= 3.0.1)
+     * @deprecated 此属性在php-5.4以下版本中适用，用以设置模板渲染的方式，eg：
+     *      array(
+     *          //开启短标识的解析
+     *          'short_tag' => 1,
+     *      )
+     * @var array
+     */
+    protected $_options;
+
+    /**
+     * (Yaf >= 3.0.1)
      * 构造方法，初始化Simple对象
      *
      * @param string $template_dir 模版文件目录

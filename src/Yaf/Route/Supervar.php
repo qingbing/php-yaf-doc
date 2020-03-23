@@ -26,6 +26,14 @@ final class Supervar implements Route_Interface
 {
     /**
      * (Yaf >= 3.0.1)
+     * 全局路由变量名
+     *
+     * @var String
+     */
+    protected $_var_name;
+
+    /**
+     * (Yaf >= 3.0.1)
      * 构造函数，在query string 中寻找路劲信息，参数 supervar_name 是建
      *
      * @param string $supervar_name

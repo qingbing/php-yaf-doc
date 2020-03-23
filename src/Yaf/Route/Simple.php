@@ -16,16 +16,38 @@ use Yaf\Route_Interface;
 
 /**
  * (Yaf >= 3.0.1)
- * Class Simple
  *
  * Yaf_Route_Simple 会匹配请求中的query string，然后找到路由信息
  * 你需要做的只是告诉 Yaf_Route_Simple，在$_GET中哪个是Module，哪个是Controller，哪个是Action
  * Yaf_Route_Simple::route() 总是会返回TRUE，所以把Yaf_Route_Simple放在路由堆栈前面是很重要的，否则其他所有的路由都可能不会被调用到
  *
+ * Class Simple
  * @package Yaf\Route
  */
 final class Simple implements Route_Interface
 {
+    /**
+     * (Yaf >= 3.0.1)
+     * 模块名
+     *
+     * @var String
+     */
+    protected $module;
+    /**
+     * (Yaf >= 3.0.1)
+     * 控制器名
+     *
+     * @var String
+     */
+    protected $controller;
+    /**
+     * (Yaf >= 3.0.1)
+     * 动作名
+     *
+     * @var String
+     */
+    protected $action;
+
     /**
      * (Yaf >= 3.0.1)
      * Yaf_Route_Simple将从query string中获得路由信息。这个构造函数的参数会被作为键到$_GET中去寻找路由信息

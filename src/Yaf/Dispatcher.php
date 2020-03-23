@@ -22,11 +22,98 @@ final class Dispatcher
 {
     /**
      * (Yaf >= 3.0.1)
-     * 魔术方法：构造函数
+     * 当前请求对象（包含请求的所有信息）.
+     *
+     * @var Request_Abstract
      */
-    private function __construct()
-    {
-    }
+    protected $_request;
+    /**
+     * (Yaf >= 3.0.1)
+     * 视图对象.
+     *      设置并初始化视图对象：
+     *      Dispatcher::getInstance()->setView($view);
+     *      Dispatcher::getInstance()->initView($template_dir, $option);
+     *
+     * @var View_Interface
+     */
+    protected $_view;
+    /**
+     * (Yaf >= 3.0.1)
+     * 路由器对象.
+     *
+     * @var Router
+     */
+    protected $_router;
+    /**
+     * (Yaf >= 3.0.1)
+     * 自动渲染功能开关，默认1.
+     * 自动渲染是指根据当前请求的控制器Controller和动作Action自动寻找模块文件，加载与渲染模块，之后返回结果或者输出.
+     *      如果设置为0，$this->_instantly_flush，$this->_return_response的设置将无效，也即：
+     *      Dispatcher::getInstance()->flushInstantly($flag);
+     *      Dispatcher::getInstance()->returnResponse($flag);
+     *      设置无效，并且不会渲染模板.
+     *
+     * @var bool
+     */
+    protected $_auto_render;
+    /**
+     * (Yaf >= 3.0.1)
+     * 返回包含请求正文的响应对象开关，默认为0.
+     * 默认情况下，Yaf的自动渲染查找并渲染模板（render，并非display），渲染结果写入Yaf\Response_Abstract实例的_body属性，
+     * 在分发器结束分发之后，输出_body（数组遍历输出）属性的值，并清空_body.
+     * 设置此属性为1，分发器结束分发之后，不会输出和清空_body，可以通过Yaf\Application的run()，Yaf\Dispatcher的方法dispatch()，
+     * 或者Yaf\Controller_Abstract的getResponse()等方法的调用返回响应对象，
+     * 进而调用Yaf\Response_Abstract实例的getBody()方法获取响应正文.此属性依赖$this->_auto_render的设置，
+     * 当$this->_auto_render=1时，响应正文包括渲染模板的结果，反之则不包括.
+     *
+     * @var bool
+     */
+    protected $_return_response;
+    /**
+     * (Yaf >= 3.0.1)
+     * 立即输出响应正文开头，默认为0.
+     * 默认情况下，Yaf自动渲染调用Yaf\Controller_Abstract的render方法，渲染模板.
+     * 当此属性设置为1时，Yaf调用Yaf\Controller_Abstract的display方法，直接渲染并输出，但不设置Yaf\Response_Abstract实例的_body属性.
+     *
+     * @var bool
+     */
+    protected $_instantly_flush;
+    /**
+     * (Yaf >= 3.0.1)
+     * 默认模块名
+     *
+     * @var string
+     */
+    protected $_default_module;
+    /**
+     * (Yaf >= 3.0.1)
+     * 默认控制器
+     *
+     * @var string
+     */
+    protected $_default_controller;
+    /**
+     * (Yaf >= 3.0.1)
+     * 默认动作名
+     *
+     * @var string
+     */
+    protected $_default_action;
+    /**
+     * (Yaf >= 3.0.1)
+     * 已注册的插件对象
+     *
+     * @var array
+     */
+    protected $_plugins;
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 保存当前 dispatcher 实例
+     *
+     * @var Dispatcher
+     */
+    protected static $_instance;
 
     /**
      * (Yaf >= 3.0.1)
@@ -36,7 +123,42 @@ final class Dispatcher
      */
     static public function getInstance()
     {
-        return Dispatcher::getInstance();
+        if (null === self::$_instance) {
+            self::$_instance = new Dispatcher();
+        }
+        return self::$_instance;
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：构造函数
+     */
+    private function __construct()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：private 禁止使用 clone 函数
+     */
+    private function __clone()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：private 禁止使用 serialize 函数
+     */
+    private function __sleep()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：private 禁止使用 unserialize 函数
+     */
+    private function __wakeup()
+    {
     }
 
     /**
@@ -47,7 +169,7 @@ final class Dispatcher
      */
     public function enableView()
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -58,7 +180,7 @@ final class Dispatcher
      */
     public function disableView()
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -71,7 +193,7 @@ final class Dispatcher
      */
     public function initView($templates_dir, $options = null)
     {
-        return new View\Simple('');
+        return $this->_view;
     }
 
     /**
@@ -84,7 +206,7 @@ final class Dispatcher
      */
     public function setView(View_Interface $view)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -97,7 +219,7 @@ final class Dispatcher
      */
     public function setRequest(Request_Abstract $request)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -108,7 +230,7 @@ final class Dispatcher
      */
     public function getApplication()
     {
-        return new Application('');
+        return Application::app();
     }
 
     /**
@@ -119,7 +241,7 @@ final class Dispatcher
      */
     public function getRouter()
     {
-        return new Router();
+        return $this->_router;
     }
 
     /**
@@ -130,7 +252,7 @@ final class Dispatcher
      */
     public function getRequest()
     {
-        return new Request\Simple();
+        return $this->_request;
     }
 
     /**
@@ -144,7 +266,7 @@ final class Dispatcher
      */
     public function setErrorHandler(callable $callback, $error_types = E_ALL | E_STRICT)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -157,7 +279,7 @@ final class Dispatcher
      */
     public function setDefaultModule($module)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -170,7 +292,7 @@ final class Dispatcher
      */
     public function setDefaultController($controller)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -183,7 +305,7 @@ final class Dispatcher
      */
     public function setDefaultAction($action)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -199,7 +321,7 @@ final class Dispatcher
      */
     public function returnResponse($flag)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -211,7 +333,7 @@ final class Dispatcher
      */
     public function autoRender($flag)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -224,7 +346,7 @@ final class Dispatcher
      */
     public function flushInstantly($flag)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -251,7 +373,7 @@ final class Dispatcher
      */
     public function throwException($flag = null)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -265,7 +387,7 @@ final class Dispatcher
      */
     public function catchException($flag = null)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 
     /**
@@ -278,6 +400,6 @@ final class Dispatcher
      */
     public function registerPlugin(Plugin_Abstract $plugin)
     {
-        return Dispatcher::getInstance();
+        return self::$_instance;
     }
 }

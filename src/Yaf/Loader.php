@@ -20,11 +20,26 @@ final class Loader
 {
     /**
      * (Yaf >= 3.0.1)
-     * 魔术方法：构造函数
+     * 当前应用本地类库目录
+     *
+     * @var String
      */
-    private function __construct()
-    {
-    }
+    protected $_library;
+    /**
+     * (Yaf >= 3.0.1)
+     * 全局类库目录
+     *
+     * @var String
+     */
+    protected $_global_library;
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 当前Loader实例（单例模式）
+     *
+     * @var Loader
+     */
+    static protected $_instance;
 
     /**
      * (Yaf >= 3.0.1)
@@ -37,7 +52,10 @@ final class Loader
      */
     static public function getInstance($local_library_path = null, $global_library_path = null)
     {
-        return new Loader();
+        if (null === self::$_instance) {
+            self::$_instance = new Loader();
+        }
+        return self::$_instance;
     }
 
     /**
@@ -51,6 +69,38 @@ final class Loader
     static public function import($file)
     {
         return true;
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：构造函数
+     */
+    private function __construct()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：private 禁止使用 clone 函数
+     */
+    private function __clone()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：private 禁止使用 serialize 函数
+     */
+    private function __sleep()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：private 禁止使用 unserialize 函数
+     */
+    private function __wakeup()
+    {
     }
 
     /**
@@ -80,7 +130,7 @@ final class Loader
      */
     public function registerLocalNamespace($name_prefix)
     {
-        return new Loader();
+        return self::$_instance;
     }
 
     /**

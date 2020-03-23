@@ -23,6 +23,21 @@ abstract class Config_Abstract
 {
     /**
      * (Yaf >= 3.0.1)
+     * 存储已解析的配置
+     *
+     * @var array
+     */
+    protected $_config;
+    /**
+     * (Yaf >= 3.0.1)
+     * 配置是否只读，默认为true
+     *
+     * @var bool
+     */
+    protected $_readonly;
+
+    /**
+     * (Yaf >= 3.0.1)
      * 获取配置节点的值
      * 当不传递$name参数时，返回配置对象本身
      *

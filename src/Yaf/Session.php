@@ -21,19 +21,61 @@ final class Session implements \Iterator, \ArrayAccess, \Countable
 {
     /**
      * (Yaf >= 3.0.1)
+     * Session 实例存储
+     *
+     * @var Session
+     */
+    protected static $_instance;
+
+    /**
+     * (Yaf >= 3.0.1)
      * 单例模式 ： 获取Session实例
      *
      * @return Session
      */
     static public function getInstance()
     {
-        return new Session();
+        if (null === self::$_instance) {
+            self::$_instance = new Session();
+        }
+        return self::$_instance;
     }
 
     /**
-     * 构造方法
+     * (Yaf >= 3.0.1)
+     * 魔术方法：构造方法
      */
     private function __construct()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：clone() 时调用，private，不允许调用，也就是说，实例不能 clone
+     *
+     * @return void
+     */
+    private function __clone()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：serialize 时调用，private，不允许调用，也就是说，实例不能被序列化
+     *
+     * @return void
+     */
+    private function __sleep()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：unserialize 时调用，private，不允许调用，也就是说，实例不能被反序列化
+     *
+     * @return void
+     */
+    private function __wakeup()
     {
     }
 
@@ -45,7 +87,7 @@ final class Session implements \Iterator, \ArrayAccess, \Countable
      */
     public function start()
     {
-        return new Session();
+        return self::$_instance;
     }
 
     /**
@@ -85,7 +127,7 @@ final class Session implements \Iterator, \ArrayAccess, \Countable
      */
     public function set($name, $value)
     {
-        return new Session();
+        return self::$_instance;
     }
 
     /**
@@ -98,7 +140,7 @@ final class Session implements \Iterator, \ArrayAccess, \Countable
      */
     public function del($name)
     {
-        return new Session();
+        return self::$_instance;
     }
 
     /**
@@ -195,7 +237,7 @@ final class Session implements \Iterator, \ArrayAccess, \Countable
      */
     public function offsetSet($name, $value)
     {
-        return new Session();
+        return self::$_instance;
     }
 
     /**
@@ -221,7 +263,7 @@ final class Session implements \Iterator, \ArrayAccess, \Countable
      */
     public function offsetUnset($name)
     {
-        return new Session();
+        return self::$_instance;
     }
 
     /**
@@ -261,7 +303,7 @@ final class Session implements \Iterator, \ArrayAccess, \Countable
      */
     public function __set($name, $value)
     {
-        return new Session();
+        return self::$_instance;
     }
 
     /**
@@ -274,6 +316,6 @@ final class Session implements \Iterator, \ArrayAccess, \Countable
      */
     public function __unset($name)
     {
-        return new Session();
+        return self::$_instance;
     }
 }

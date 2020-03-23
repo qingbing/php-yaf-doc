@@ -25,6 +25,28 @@ final class Rewrite implements Route_Interface
 {
     /**
      * (Yaf >= 3.0.1)
+     * 路由匹配正则表达式
+     *
+     * @var string
+     */
+    protected $_route;
+    /**
+     * (Yaf >= 3.0.1)
+     * 默认路由信息
+     *
+     * 如：array('module' => 'index', 'controller' => 'index', 'action' => 'index')
+     * @var array
+     */
+    protected $_default;
+    /**
+     * (Yaf >= 3.0.1)
+     *
+     * @var array
+     */
+    protected $_verify;
+
+    /**
+     * (Yaf >= 3.0.1)
      * 构造函数
      *
      * @param string $match 一个类似正则表达式，会被用来匹配一个请求的uri，如果匹配失败，Yaf_Route_Rewrite 会返回FALSE

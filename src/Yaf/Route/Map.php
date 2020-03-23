@@ -30,9 +30,24 @@ final class Map implements Route_Interface
 {
     /**
      * (Yaf >= 3.0.1)
+     * 表示路由结果是作为动作的路由结果，还是控制器的路由结果，默认的是动作路由结果.
+     *
+     * @var int
+     */
+    protected $_ctl_router = 0;
+    /**
+     * (Yaf >= 3.0.1)
+     * 分隔符
+     *
+     * @var string
+     */
+    protected $_delimiter;
+
+    /**
+     * (Yaf >= 3.0.1)
      * Map 构造函数
      *
-     * @param string $controller_prefer 路由结果是作为动作的路由结果,还是控制器的路由结果. 默认的是动作路由结果
+     * @param bool $controller_prefer 路由结果是作为动作的路由结果,还是控制器的路由结果. 默认的是动作路由结果
      * @param string $delimiter 分隔符, 如果设置了这个分隔符, 那么在REQUEST_URI中, 分隔符之前的作为路由信息载体, 而之后的作为请求参
      */
     public function __construct($controller_prefer = false, $delimiter = null)

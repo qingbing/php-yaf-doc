@@ -25,6 +25,44 @@ final class Regex implements Route_Interface
 {
     /**
      * (Yaf >= 3.0.1)
+     * 路由匹配正则表达式
+     *
+     * @var string
+     */
+    protected $_route;
+    /**
+     * (Yaf >= 3.0.1)
+     * 默认路由信息
+     *
+     * 如：array('module' => 'index', 'controller' => 'index', 'action' => 'index')
+     *
+     * @var array
+     */
+    protected $_default;
+    /**
+     * (Yaf >= 3.0.1)
+     * 模式分组的映射关系
+     *
+     * 如：array('1' => 'name', '2' => 'age')
+     *
+     * @var array
+     */
+    protected $_maps;
+    /**
+     * (Yaf >= 3.0.1)
+     *
+     * @var array
+     */
+    protected $_verify;
+    /**
+     * (Yaf >= 3.0.1)
+     *
+     * @var array
+     */
+    protected $_reverse;
+
+    /**
+     * (Yaf >= 3.0.1)
      * 构造函数
      *
      * @param string $match 一个完整的正则表达式，用来匹配一个请求的uri，如果不能匹配，Yaf_Route_Regex 将返回FALSE

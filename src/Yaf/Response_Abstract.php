@@ -28,9 +28,39 @@ abstract class Response_Abstract
 
     /**
      * (Yaf >= 3.0.1)
-     * 构造方法
+     * 响应报头
+     *
+     * @var array
+     */
+    protected $_header;
+    /**
+     * (Yaf >= 3.0.1)
+     * 响应正文
+     *
+     * @var array
+     */
+    protected $_body;
+    /**
+     * (Yaf >= 3.0.1)
+     * 是否开启已输出响应报头检测
+     *
+     * @var int
+     */
+    protected $_sendheader = 0;
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：构造函数
      */
     public function __construct()
+    {
+    }
+
+    /**
+     * (Yaf >= 3.0.1)
+     * 魔术方法：禁止使用 clone 函数
+     */
+    private function __clone()
     {
     }
 
