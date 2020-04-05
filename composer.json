@@ -18,7 +18,10 @@
       "email": "780042175@qq.com"
     }
   ],
-  "require": {},
+  "require": {
+    "php": ">=7.0.0",
+    "ext-yaf": "*"
+  },
   "autoload": {},
   "autoload-dev": {},
   "repositories": {}
